@@ -16,10 +16,14 @@ public class EditForm extends javax.swing.JFrame {
      * Creates new form EditForm
      */
       private MahasiswaController controller;
+      public MainApps mainform;
     public EditForm() {
         initComponents();
            this.controller = new MahasiswaController();
+           
     }
+
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -110,11 +114,12 @@ public class EditForm extends javax.swing.JFrame {
             m.setJurusan(txtJurusan.getSelectedItem().toString());
             controller.updateData(m);
             
-            
-            
+            MainApps mainForm = new MainApps();
+        mainForm.tampilKeTabel2();
             dispose();
             
             
+          
             
             
             

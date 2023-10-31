@@ -4,6 +4,7 @@
  */
 package com.irvanlewenusa.swingdatabase;
 
+import java.awt.HeadlessException;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -27,12 +28,13 @@ public class MainApps extends javax.swing.JFrame {
     public MainApps() {
         initComponents();
         this.controller = new MahasiswaController();
-        this.model = (DefaultTableModel)tabelMahasiswa.getModel();
+     this.model = (DefaultTableModel)tabelMahasiswa.getModel();
        tampilKeTabel();
     }
     
     public void tampilKeTabel(){
          try {
+                
              model.getDataVector().removeAllElements();
              model.fireTableDataChanged();
             for(Mahasiswa m : this.controller.tampilDataAll()){
@@ -41,6 +43,18 @@ public class MainApps extends javax.swing.JFrame {
             this.model.addRow(dataBaris);
             
             }
+        } catch (Exception e) {
+           e. printStackTrace();
+        }
+    }
+    
+     public  void tampilKeTabel2(){
+         try {
+           
+           
+               System.out.println("update tabel");
+               
+               tampilKeTabel();
         } catch (Exception e) {
            e. printStackTrace();
         }
@@ -154,12 +168,15 @@ public class MainApps extends javax.swing.JFrame {
                     .addComponent(jLabel3)
                     .addComponent(txtJurusan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnSimpan)
-                    .addComponent(btnDelete)
-                    .addComponent(btnUpdate)
-                    .addComponent(btnRefresh))
-                .addContainerGap(17, Short.MAX_VALUE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnSimpan)
+                            .addComponent(btnDelete)
+                            .addComponent(btnRefresh))
+                        .addGap(0, 11, Short.MAX_VALUE))
+                    .addComponent(btnUpdate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Daftar Mahasiswa"));
@@ -251,8 +268,7 @@ public class MainApps extends javax.swing.JFrame {
                 
                 
                 
-            } catch (Exception e) {
-                e.printStackTrace();
+            } catch (HeadlessException | SQLException e) {
             }
             
             
@@ -300,7 +316,6 @@ public class MainApps extends javax.swing.JFrame {
                 
                 
             } catch (Exception e) {
-                e.printStackTrace();
             }
             
             
@@ -367,7 +382,7 @@ public class MainApps extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable tabelMahasiswa;
+    private static javax.swing.JTable tabelMahasiswa;
     private javax.swing.JComboBox<String> txtJurusan;
     private javax.swing.JTextField txtNIM;
     private javax.swing.JTextField txtNama;
